@@ -233,3 +233,20 @@
  *              200:
  *                  description: getProduct Successfully
  */
+
+/**
+ * @swagger
+ *  /api/product/remove/{id}:
+ *      delete:
+ *          tags: [Products]
+ *          summary: remove product
+ *          description: remove product by id
+ *          parameters:
+ *              -   in: path
+ *                  name: id
+ *                  type: string
+ *                  description: the id of product
+ *          responses:
+ *              200:
+ *                  description: remove product successfully
+ */

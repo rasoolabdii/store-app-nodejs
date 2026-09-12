@@ -24,3 +24,4 @@ module.exports = {
 };
 
 router.get("/list/:id" , AuthGuard , productController.getProductById);
+router.delete("/remove/:id" , AuthGuard , productController.removeProductById);

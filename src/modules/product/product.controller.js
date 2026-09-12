@@ -171,7 +171,7 @@ class ProductController extends Controller {
   async getProductById(req, res, next) {
     try {
       const { id } = await ObjectIdValidator.validateAsync(req.params);
-      const product = await ProductModel.findById({_id: id} , {__v: 0});
+      const product = await ProductModel.findById({_id: id} , {__v: 0}).populate([{path: "supplier" , select: "first_name , last_name , email"}]);
       if(!product) {
         throw new createHttpError.NotFound("محصول مورد نظر یافت نشد")
       }
@@ -183,6 +183,27 @@ class ProductController extends Controller {
       })
     }
     catch(error) {
+      next(error);
+    }
+  }
+
+  async removeProductById(req , res , next) {
+    try {
+      const { id } = await ObjectIdValidator.validateAsync(req.params);
+      console.log(id);
+      const productRemoveResult = await ProductModel.deleteOne({_id: id});
+      if(productRemoveResult.deletedCount === 0) {
+        throw new createHttpError.NotFound("محصول مورد نظر شمایافت نشد")
+      }
+      return res.status(HttpStatus.OK).json({
+        statusCode: HttpStatus.OK,
+        data: {
+          message: "محصول مورد نظر شما با موفقیت حذف گردید"
+        }
+      })
+    }
+    catch(error) {
+      console.log(error);
       next(error);
     }
   }
