@@ -12,6 +12,7 @@ const {
 } = require("../../utils/functions");
 const { StatusCodes: HttpStatus } = require("http-status-codes");
 const Controller = require("../Controller");
+const createHttpError = require("http-errors");
 
 const productBlackList = {
   BOOKMARKS: "bookmarks",
@@ -163,6 +164,25 @@ class ProductController extends Controller {
         },
       });
     } catch (error) {
+      next(error);
+    }
+  }
+
+  async getProductById(req, res, next) {
+    try {
+      const { id } = await ObjectIdValidator.validateAsync(req.params);
+      const product = await ProductModel.findById({_id: id} , {__v: 0});
+      if(!product) {
+        throw new createHttpError.NotFound("محصول مورد نظر یافت نشد")
+      }
+      return res.status(HttpStatus.OK).json({
+        statusCode: HttpStatus.OK,
+        data: {
+          product
+        }
+      })
+    }
+    catch(error) {
       next(error);
     }
   }

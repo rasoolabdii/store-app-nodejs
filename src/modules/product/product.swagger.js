@@ -216,3 +216,20 @@
  *              200:
  *                  description: getAllList Successfully
  */
+
+/**
+ * @swagger
+ *  /api/product/list/{id}:
+ *      get:
+ *          tags: [Products]
+ *          summary: get product
+ *          description: get product by id
+ *          parameters:
+ *              -   in: path
+ *                  name: id
+ *                  type: string
+ *                  description: the id of product
+ *          responses:
+ *              200:
+ *                  description: getProduct Successfully
+ */

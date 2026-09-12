@@ -22,3 +22,5 @@ router.get("/list", AuthGuard, productController.listOfAllProducts);
 module.exports = {
   productRutesApi: router,
 };
+
+router.get("/list/:id" , AuthGuard , productController.getProductById);
